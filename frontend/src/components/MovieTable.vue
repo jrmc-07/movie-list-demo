@@ -14,9 +14,9 @@
                     <td class="w3-center">{{ movie.fields.title }}</td>
                     <td class="w3-center">{{ movie.fields.likes }}</td>
                     <td class="w3-center">
-                        <button class="w3-button w3-round-large w3-green" @click="likeMovie(movie.pk)">Like</button>
+                        <LikeButton :id=movie.pk @liked="getMovies"/>
                         <button class="w3-button w3-round-large w3-blue">Edit</button>
-                        <button class="w3-button w3-round-large w3-red" @click="deleteMovie(movie.pk, movie.fields.title)">Delete</button>
+                        <DeleteButton :id=movie.pk :title=movie.fields.title @deleted="getMovies" />
                     </td>
                 </tr>
             </tbody>
@@ -26,9 +26,15 @@
 
 <script>
 import axios from 'axios';
+import LikeButton from '@/components/MovieLikeButton.vue';
+import DeleteButton from '@/components/MovieDeleteButton.vue';
 
 export default {
     name: 'MovieTable',
+    components: {
+        LikeButton,
+        DeleteButton,
+    },
     data() {
         return {
             movies: [],
@@ -39,16 +45,6 @@ export default {
             const response = await axios.get('http://127.0.0.1:8000/movielist/movies');
             this.movies = response.data;
         },
-        async likeMovie(id) {
-            const response = await axios.get('http://127.0.0.1:8000/movielist/movies/'+id+'/like');
-            this.getMovies();
-        },
-        async deleteMovie(id, title) {
-            if (confirm("Are you sure you want to delete this movie - " + title + "?")) {
-                const response = await axios.delete('http://127.0.0.1:8000/movielist/movies/'+id);
-                this.getMovies();
-            }
-        }
     },
     mounted() {
         this.getMovies();
