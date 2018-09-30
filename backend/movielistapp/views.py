@@ -40,6 +40,9 @@ class MovieDetails(View):
     Get, update, or delete a specific movie.
     """
     def get(self, request, movie_id):
+        """
+        Return a specific movie based from id.
+        """
         movie = get_object_or_404(Movie, pk=movie_id)
         return HttpResponse(serialize("json", [movie,]),
                             content_type="application/json")
