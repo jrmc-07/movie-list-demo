@@ -15,7 +15,8 @@
                     <td class="w3-center">{{ movie.fields.likes }}</td>
                     <td class="w3-center">
                         <LikeButton :id=movie.pk @liked="getMovies"/>
-                        <button class="w3-button w3-round-large w3-blue" @click=editClicked(movie.pk)>Edit</button>
+                        <button class="w3-button w3-round-large w3-blue" @click="viewClicked(movie.pk)">View</button>
+                        <button class="w3-button w3-round-large w3-orange" @click=editClicked(movie.pk)>Edit</button>
                         <DeleteButton :id=movie.pk :title=movie.fields.title @deleted="getMovies" />
                     </td>
                 </tr>
@@ -46,7 +47,9 @@ export default {
             this.movies = response.data;
         },
         editClicked(id) {
-            this.$router.push('/movie/'+id+'/edit');
+        },
+        viewClicked(id) {
+            this.$router.push('/movie/'+id);
         }
     },
     mounted() {
