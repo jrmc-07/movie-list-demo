@@ -32,6 +32,7 @@ class MovieList(View):
         if form.is_valid():
             form.save()
             return HttpResponse(status=201)
+        return HttpResponse(status=400)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
