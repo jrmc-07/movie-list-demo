@@ -47,3 +47,15 @@ class MovieDetails(View):
         movie = get_object_or_404(Movie, pk=movie_id)
         return HttpResponse(serialize("json", [movie,]),
                             content_type="application/json")
+
+    def put(self, request, movie_id):
+        """
+        Update movie title of a specific movie based from id.
+        """
+        movie = get_object_or_404(Movie, pk=movie_id)
+        form = MovieForm(json.loads(request.body.decode('utf-8')),
+                         instance=movie)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=200)
+        return HttpResponse(status=400)
