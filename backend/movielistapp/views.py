@@ -68,3 +68,14 @@ class MovieDetails(View):
         movie.is_active = False
         movie.save()
         return HttpResponse(status=200)
+
+
+def MovieLikes(request, movie_id):
+    """
+    Function to handle increment of movie likes.
+    """
+    movie = get_object_or_404(Movie, pk=movie_id)
+    movie.likes += 1
+    movie.save()
+    return HttpResponse(serialize("json", [movie,]),
+                        content_type="application/json")
