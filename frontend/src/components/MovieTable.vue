@@ -6,12 +6,18 @@
                 <tr class="w3-light-grey">
                     <td class="w3-center"><b>Title</b></td>
                     <td class="w3-center"><b>Likes</b></td>
+                    <td class="w3-center"><b>Actions</b></td>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="movie in movies" :key="movie.pk">
                     <td class="w3-center">{{ movie.fields.title }}</td>
                     <td class="w3-center">{{ movie.fields.likes }}</td>
+                    <td class="w3-center">
+                        <button class="w3-button w3-round-large w3-green" @click="likeMovie(movie.pk)">Like</button>
+                        <button class="w3-button w3-round-large w3-blue">Edit</button>
+                        <button class="w3-button w3-round-large w3-red" @click="deleteMovie(movie.pk)">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -32,6 +38,14 @@ export default {
         async getMovies() {
             const response = await axios.get('http://127.0.0.1:8000/movielist/movies');
             this.movies = response.data;
+        },
+        async likeMovie(id) {
+            const response = await axios.get('http://127.0.0.1:8000/movielist/movies/'+id+'/like');
+            this.getMovies();
+        },
+        async deleteMovie(id) {
+            const response = await axios.delete('http://127.0.0.1:8000/movielist/movies/'+id);
+            this.getMovies();
         }
     },
     mounted() {
