@@ -16,7 +16,7 @@
                     <td class="w3-center">
                         <button class="w3-button w3-round-large w3-green" @click="likeMovie(movie.pk)">Like</button>
                         <button class="w3-button w3-round-large w3-blue">Edit</button>
-                        <button class="w3-button w3-round-large w3-red" @click="deleteMovie(movie.pk)">Delete</button>
+                        <button class="w3-button w3-round-large w3-red" @click="deleteMovie(movie.pk, movie.fields.title)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -43,9 +43,11 @@ export default {
             const response = await axios.get('http://127.0.0.1:8000/movielist/movies/'+id+'/like');
             this.getMovies();
         },
-        async deleteMovie(id) {
-            const response = await axios.delete('http://127.0.0.1:8000/movielist/movies/'+id);
-            this.getMovies();
+        async deleteMovie(id, title) {
+            if (confirm("Are you sure you want to delete this movie - " + title + "?")) {
+                const response = await axios.delete('http://127.0.0.1:8000/movielist/movies/'+id);
+                this.getMovies();
+            }
         }
     },
     mounted() {
