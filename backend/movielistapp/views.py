@@ -59,3 +59,11 @@ class MovieDetails(View):
             form.save()
             return HttpResponse(status=200)
         return HttpResponse(status=400)
+
+    def delete(self, request, movie_id):
+        """
+        Performs a soft delete - sets is_active movie property to false
+        """
+        movie = get_object_or_404(Movie, pk=movie_id)
+        movie.is_active = False
+        return HttpResponse(status=200)
