@@ -16,7 +16,7 @@ import axios from 'axios';
 
 export default {
     name: 'MovieForm',
-    props: [ 'type', 'title' ],
+    props: [ 'type', 'title', 'id' ],
     data() {
         return {
             movie_title: '',
@@ -26,11 +26,26 @@ export default {
         header() {
             if (this.type == "create") { return "Add New Movie"; }
             else if (this.type == "update") { return "Update Movie"; }
+        },
+        link() {
+            if (this.type == "create") { return "http://127.0.0.1:8000/movielist/movies"; }
+            else if (this.type == "update") { return "http://127.0.0.1:8000/movielist/movies/"+this.id; }
+        },
+        http_req_method() {
+            if (this.type == "create") { return "post"; }
+            else if (this.type == "update") { return "put"; }
         }
     },
     methods: {
-        onSubmit() {
-            //
+        async onSubmit() {
+            const response = await axios({
+                method: this.http_req_method,
+                url: this.link,
+                data: {
+                    title: this.movie_title,
+                }
+            });
+            this.$emit('success');
         }
     },
     mounted() {
