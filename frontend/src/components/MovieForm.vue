@@ -48,6 +48,11 @@ export default {
             this.$emit('success');
         }
     },
+    watch: {
+        title(val) {
+            this.movie_title = val;
+        }
+    },
     mounted() {
         if (this.type == "update") {
             this.movie_title = this.title;
