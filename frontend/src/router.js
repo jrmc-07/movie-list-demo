@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import EditMovie from './views/EditMovie.vue'
+import AddMovie from './views/AddMovie.vue'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/movie/add',
+      name: 'AddMovie',
+      component: AddMovie,
     },
     {
       path: '/movie/:id/edit',

@@ -1,7 +1,7 @@
 <template>
   <div class="w3-container" style="height: 100%">
     <MovieTable class="mtable"></MovieTable>
-    <button class="w3-button w3-round-large w3-border w3-right w3-blue">Add a Movie</button>
+    <button class="w3-button w3-round-large w3-border w3-right w3-blue" @click="addClicked">Add a Movie</button>
   </div>
 </template>
 
@@ -13,6 +13,11 @@ export default {
   name: 'home',
   components: {
     MovieTable,
+  },
+  methods: {
+    addClicked() {
+      this.$router.push('/movie/add');
+    }
   }
 }
 </script>
