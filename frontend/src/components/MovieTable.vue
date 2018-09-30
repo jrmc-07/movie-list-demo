@@ -1,11 +1,19 @@
 <template>
     <div class="w3-container w3-center">
-        <h3>Movies</h3>
-        <table class="w3-table movie-table">
+        <h2><b>Movies</b></h2>
+        <table class="w3-table movie-table w3-striped w3-bordered w3-hoverable">
             <thead>
-                <td class="w3-center"><b>Title</b></td>
-                <td class="w3-center"><b>Actions</b></td>
+                <tr class="w3-light-grey">
+                    <td class="w3-center"><b>Title</b></td>
+                    <td class="w3-center"><b>Likes</b></td>
+                </tr>
             </thead>
+            <tbody>
+                <tr v-for="movie in movies" :key="movie.pk">
+                    <td class="w3-center">{{ movie.fields.title }}</td>
+                    <td class="w3-center">{{ movie.fields.likes }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </template>
@@ -34,7 +42,6 @@ export default {
 
 <style>
 .movie-table {
-    width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
