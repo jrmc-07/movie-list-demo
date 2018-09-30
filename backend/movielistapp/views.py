@@ -19,7 +19,7 @@ class MovieList(View):
         """
         Returns all movies.
         """
-        movies = Movie.objects.all()
+        movies = Movie.objects.filter(is_active=True).order_by('title')
         return HttpResponse(serialize("json", movies),
                             content_type="application/json")
 
