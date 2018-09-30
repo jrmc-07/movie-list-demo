@@ -1,7 +1,7 @@
 import json
 
 from django.core.serializers import serialize
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -32,3 +32,14 @@ class MovieList(View):
         if form.is_valid():
             form.save()
             return HttpResponse(status=201)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class MovieDetails(View):
+    """
+    Get, update, or delete a specific movie.
+    """
+    def get(self, request, movie_id):
+        movie = get_object_or_404(Movie, pk=movie_id)
+        return HttpResponse(serialize("json", [movie,]),
+                            content_type="application/json")
