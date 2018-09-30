@@ -1,6 +1,7 @@
 <template>
-  <div class="w3-container">
-    <MovieTable></MovieTable>
+  <div class="w3-container" style="height: 100%">
+    <MovieTable class="mtable"></MovieTable>
+    <button class="w3-button w3-round-large w3-border w3-right w3-blue">Add a Movie</button>
   </div>
 </template>
 
@@ -15,3 +16,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.mtable {
+  height: 50%;
+  overflow-y: auto;
+}
+</style>
