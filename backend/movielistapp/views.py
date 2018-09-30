@@ -66,4 +66,5 @@ class MovieDetails(View):
         """
         movie = get_object_or_404(Movie, pk=movie_id)
         movie.is_active = False
+        movie.save()
         return HttpResponse(status=200)
