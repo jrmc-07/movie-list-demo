@@ -70,7 +70,7 @@ class MovieDetails(View):
         return HttpResponse(status=200)
 
 
-def MovieLikes(request, movie_id):
+def movieLikes(request, movie_id):
     """
     Function to handle increment of movie likes.
     """
