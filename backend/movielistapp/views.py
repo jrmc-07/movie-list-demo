@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from django.core.serializers import serialize
 from django.shortcuts import HttpResponse, get_object_or_404
@@ -79,3 +80,12 @@ def likeMovie(request, movie_id):
     movie.save()
     return HttpResponse(serialize("json", [movie,]),
                         content_type="application/json")
+
+def getLastSession(request):
+    last_session = 0
+    try:
+        last_session = request.session['last_session']
+    except:
+        pass
+    request.session['last_session'] = datetime.datetime.now().ctime()
+    return HttpResponse(last_session)
