@@ -16,7 +16,7 @@
                     <td class="w3-center">
                         <LikeButton :id=movie.pk @liked="getMovies"/>
                         <button class="w3-button w3-round-large w3-blue" @click="viewClicked(movie.pk)">View</button>
-                        <button class="w3-button w3-round-large w3-orange" @click="editClicked(movie.pk)">Edit</button>
+                        <EditButton :id=movie.pk />
                         <DeleteButton :id=movie.pk :title=movie.fields.title @deleted="getMovies" />
                     </td>
                 </tr>
@@ -28,6 +28,7 @@
 <script>
 import axios from 'axios';
 import LikeButton from '@/components/MovieLikeButton.vue';
+import EditButton from '@/components/MovieEditButton.vue';
 import DeleteButton from '@/components/MovieDeleteButton.vue';
 
 export default {
@@ -35,6 +36,7 @@ export default {
     components: {
         LikeButton,
         DeleteButton,
+        EditButton,
     },
     data() {
         return {

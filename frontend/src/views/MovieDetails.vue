@@ -19,20 +19,23 @@
                 </tr>
             </table>
         </div>
-        <LikeButton />
-        <DeleteButton />
+        <LikeButton :id=movie.pk @liked=getMovieDetails />
+        <EditButton :id=movie.pk />
+        <DeleteButton :id=movie.pk :title=movie.fields.title @deleted=onMovieDeleted />
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import LikeButton from '@/components/MovieLikeButton.vue';
+import EditButton from '@/components/MovieEditButton.vue';
 import DeleteButton from '@/components/MovieDeleteButton.vue';
 
 export default {
     name: 'MovieDetails',
     components: {
         LikeButton,
+        EditButton,
         DeleteButton,
     },
     data() {
@@ -40,9 +43,17 @@ export default {
             movie: {pk:0, fields:{title:'',likes:''}}
         }
     },
-    async mounted() {
-        const response = await axios.get('http://127.0.0.1:8000/movielist/movies/'+this.$route.params.id);
-        this.movie = response.data[0];
+    methods: {
+        async getMovieDetails() {
+            const response = await axios.get('http://127.0.0.1:8000/movielist/movies/'+this.$route.params.id);
+            this.movie = response.data[0];
+        },
+        onMovieDeleted() {
+            this.$router.push('/');
+        }
+    },
+    mounted() {
+        this.getMovieDetails()
     }
 }
 </script>
